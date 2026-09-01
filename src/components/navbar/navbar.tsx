@@ -1,9 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs';
+
+import { Button } from '@/components/ui/button';
 
 const navLinks = [
   { label: 'Jobs', href: '/jobs' },
@@ -16,7 +18,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="fixed top-0 right-0 left-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="text-xl font-bold tracking-tight">
@@ -36,22 +38,24 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Desktop Authentication Actions */}
+        {/* Desktop Authentication */}
         <div className="hidden items-center gap-2 md:flex">
-          <Button
-            variant="ghost"
-            nativeButton={false}
-            render={<Link href="/sign-in" />}
-          >
-            Sign In
-          </Button>
+          <Show when="signed-out">
+            <SignInButton>
+              <Button variant="ghost">Sign In</Button>
+            </SignInButton>
 
-          <Button nativeButton={false} render={<Link href="/sign-up" />}>
-            Get Started
-          </Button>
+            <SignUpButton>
+              <Button>Get Started</Button>
+            </SignUpButton>
+          </Show>
+
+          <Show when="signed-in">
+            <UserButton />
+          </Show>
         </div>
 
-        {/* Mobile Hamburger Button */}
+        {/* Mobile Menu Button */}
         <div className="flex md:hidden">
           <Button
             variant="ghost"
@@ -64,9 +68,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Drawer Navigation */}
+      {/* Mobile Navigation */}
       {isOpen && (
-        <div className="border-b bg-background px-4 pb-6 pt-2 md:hidden">
+        <div className="border-b bg-background px-4 pt-2 pb-6 md:hidden">
           <nav className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
@@ -79,26 +83,25 @@ export default function Navbar() {
               </Link>
             ))}
 
-            {/* Mobile Auth Buttons */}
-            <div className="mt-4 flex flex-col gap-2 pt-4 border-t">
-              <Button
-                variant="outline"
-                className="w-full justify-center"
-                nativeButton={false}
-                render={<Link href="/sign-in" />}
-                onClick={() => setIsOpen(false)}
-              >
-                Sign In
-              </Button>
+            {/* Mobile Authentication */}
+            <div className="mt-4 flex flex-col gap-2 border-t pt-4">
+              <Show when="signed-out">
+                <SignInButton>
+                  <Button variant="outline" className="w-full justify-center">
+                    Sign In
+                  </Button>
+                </SignInButton>
 
-              <Button
-                className="w-full justify-center"
-                nativeButton={false}
-                render={<Link href="/sign-up" />}
-                onClick={() => setIsOpen(false)}
-              >
-                Get Started
-              </Button>
+                <SignUpButton>
+                  <Button className="w-full justify-center">Get Started</Button>
+                </SignUpButton>
+              </Show>
+
+              <Show when="signed-in">
+                <div className="flex justify-center">
+                  <UserButton />
+                </div>
+              </Show>
             </div>
           </nav>
         </div>
