@@ -2,35 +2,10 @@ import { NextResponse } from 'next/server';
 import { requireRole } from '@/lib/current-user';
 import { prisma } from '@/lib/prisma';
 
-export async function GET() {
-  try {
-    const jobs = await prisma.job.findMany({
-      where: {
-        isActive: true,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
-
-    return NextResponse.json({
-      success: true,
-      jobs,
-    });
-  } catch (error) {
-    console.error('Get jobs error:', error);
-
-    return NextResponse.json(
-      {
-        success: false,
-        message: 'Failed to fetch jobs',
-      },
-      { status: 500 }
-    );
-  }
-}
-
-export async function POST(request: Request) {
+export async function PATCH(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     const user = await requireRole('EMPLOYER');
 
@@ -38,12 +13,13 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          message: 'Only employers can create jobs',
+          message: 'Only employers can edit jobs',
         },
         { status: 403 }
       );
     }
 
+    const { id } = await params;
     const body = await request.json();
 
     const { title, description, location, employmentType, salary, isActive } =
@@ -59,7 +35,27 @@ export async function POST(request: Request) {
       );
     }
 
-    const job = await prisma.job.create({
+    const job = await prisma.job.findFirst({
+      where: {
+        id,
+        employerId: user.id,
+      },
+    });
+
+    if (!job) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'Job not found',
+        },
+        { status: 404 }
+      );
+    }
+
+    const updatedJob = await prisma.job.update({
+      where: {
+        id,
+      },
       data: {
         title,
         description,
@@ -67,25 +63,21 @@ export async function POST(request: Request) {
         employmentType,
         salary: salary || null,
         isActive: isActive ?? true,
-        employerId: user.id,
       },
     });
 
-    return NextResponse.json(
-      {
-        success: true,
-        message: 'Job created successfully',
-        job,
-      },
-      { status: 201 }
-    );
+    return NextResponse.json({
+      success: true,
+      message: 'Job updated successfully',
+      job: updatedJob,
+    });
   } catch (error) {
-    console.error('Create job error:', error);
+    console.error('Update job error:', error);
 
     return NextResponse.json(
       {
         success: false,
-        message: 'Failed to create job',
+        message: 'Failed to update job',
       },
       { status: 500 }
     );
