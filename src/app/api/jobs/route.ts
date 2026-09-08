@@ -8,6 +8,13 @@ export async function GET() {
       where: {
         isActive: true,
       },
+      include: {
+        employer: {
+          select: {
+            name: true,
+          },
+        },
+      },
       orderBy: {
         createdAt: 'desc',
       },
