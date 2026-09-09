@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Navbar from '@/components/navbar/navbar';
 import Footer from '@/components/footer/footer';
 import './globals.css';
+import { Toaster } from '@/components/ui/toast';
 
 export const metadata: Metadata = {
   title: 'HireFlow',
@@ -21,6 +22,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
+          <Toaster />
         </ClerkProvider>
       </body>
     </html>
