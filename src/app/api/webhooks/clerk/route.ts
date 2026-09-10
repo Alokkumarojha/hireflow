@@ -101,6 +101,33 @@ export async function POST(req: Request) {
       console.log('User created in database:', email);
     }
 
+    if (event.type === 'user.updated') {
+      const { id, first_name, last_name, email_addresses } = event.data;
+
+      const email = email_addresses?.[0]?.email_address;
+
+      if (!email) {
+        return NextResponse.json(
+          { error: 'User email not found' },
+          { status: 400 }
+        );
+      }
+
+      const name = [first_name, last_name].filter(Boolean).join(' ') || null;
+
+      await prisma.user.update({
+        where: {
+          clerkId: id,
+        },
+        data: {
+          name,
+          email,
+        },
+      });
+
+      console.log('User updated in database:', email);
+    }
+
     return NextResponse.json({ received: true });
   } catch (error) {
     console.error('Clerk webhook error:', error);
