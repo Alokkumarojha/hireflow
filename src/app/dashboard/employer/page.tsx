@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import { requireRole } from '@/lib/current-user';
 import MyJobs from '@/components/employer/my-jobs';
+import Applications from '@/components/employer/applications';
 import { Mail, ShieldCheck, Building2, Sparkles } from 'lucide-react';
 
 export default async function EmployerDashboard() {
@@ -50,6 +51,10 @@ export default async function EmployerDashboard() {
       {/* Main Dashboard Body */}
       <main className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
         <MyJobs />
+
+        <div className="mt-10">
+          <Applications />
+        </div>
       </main>
     </div>
   );
