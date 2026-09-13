@@ -40,6 +40,7 @@ model User {
 
   jobs         Job[]         @relation("EmployerJobs")
   applications Application[] @relation("CandidateApplications")
+  resume       Resume?       @relation("CandidateResume")
 }
 
 model Job {
@@ -79,4 +80,19 @@ model Application {
   @@unique([jobId, candidateId])
   @@index([jobId])
   @@index([candidateId])
+}
+
+model Resume {
+  id          String @id @default(cuid())
+  fileName    String
+  fileUrl     String
+  publicId    String
+  fileSize    Int
+  mimeType    String
+  candidateId String @unique
+
+  candidate User @relation("CandidateResume", fields: [candidateId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
