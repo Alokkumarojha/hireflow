@@ -15,6 +15,7 @@ import {
 import { requireRole } from '@/lib/current-user';
 import ApplicationCard from '@/components/applications/application-card';
 import { getCandidateApplications } from '@/lib/applications';
+import ResumeUpload from '@/components/candidate/resume-upload';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
@@ -168,6 +169,11 @@ export default async function CandidateDashboard() {
               </p>
             </div>
           </div>
+        </section>
+
+        {/* Resume Section */}
+        <section className="mt-10">
+          <ResumeUpload />
         </section>
 
         {/* Applications List Section */}

@@ -200,6 +200,7 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   jobs?: Prisma.JobListRelationFilter
   applications?: Prisma.ApplicationListRelationFilter
+  resume?: Prisma.XOR<Prisma.ResumeNullableScalarRelationFilter, Prisma.ResumeWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -212,6 +213,7 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   jobs?: Prisma.JobOrderByRelationAggregateInput
   applications?: Prisma.ApplicationOrderByRelationAggregateInput
+  resume?: Prisma.ResumeOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -227,6 +229,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   jobs?: Prisma.JobListRelationFilter
   applications?: Prisma.ApplicationListRelationFilter
+  resume?: Prisma.XOR<Prisma.ResumeNullableScalarRelationFilter, Prisma.ResumeWhereInput> | null
 }, "id" | "clerkId" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -265,6 +268,7 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   jobs?: Prisma.JobCreateNestedManyWithoutEmployerInput
   applications?: Prisma.ApplicationCreateNestedManyWithoutCandidateInput
+  resume?: Prisma.ResumeCreateNestedOneWithoutCandidateInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -277,6 +281,7 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutEmployerInput
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutCandidateInput
+  resume?: Prisma.ResumeUncheckedCreateNestedOneWithoutCandidateInput
 }
 
 export type UserUpdateInput = {
@@ -289,6 +294,7 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jobs?: Prisma.JobUpdateManyWithoutEmployerNestedInput
   applications?: Prisma.ApplicationUpdateManyWithoutCandidateNestedInput
+  resume?: Prisma.ResumeUpdateOneWithoutCandidateNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -301,6 +307,7 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jobs?: Prisma.JobUncheckedUpdateManyWithoutEmployerNestedInput
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
+  resume?: Prisma.ResumeUncheckedUpdateOneWithoutCandidateNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -412,6 +419,20 @@ export type UserUpdateOneRequiredWithoutApplicationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutApplicationsInput, Prisma.UserUpdateWithoutApplicationsInput>, Prisma.UserUncheckedUpdateWithoutApplicationsInput>
 }
 
+export type UserCreateNestedOneWithoutResumeInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutResumeInput, Prisma.UserUncheckedCreateWithoutResumeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutResumeInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutResumeNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutResumeInput, Prisma.UserUncheckedCreateWithoutResumeInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutResumeInput
+  upsert?: Prisma.UserUpsertWithoutResumeInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutResumeInput, Prisma.UserUpdateWithoutResumeInput>, Prisma.UserUncheckedUpdateWithoutResumeInput>
+}
+
 export type UserCreateWithoutJobsInput = {
   id?: string
   clerkId: string
@@ -421,6 +442,7 @@ export type UserCreateWithoutJobsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   applications?: Prisma.ApplicationCreateNestedManyWithoutCandidateInput
+  resume?: Prisma.ResumeCreateNestedOneWithoutCandidateInput
 }
 
 export type UserUncheckedCreateWithoutJobsInput = {
@@ -432,6 +454,7 @@ export type UserUncheckedCreateWithoutJobsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutCandidateInput
+  resume?: Prisma.ResumeUncheckedCreateNestedOneWithoutCandidateInput
 }
 
 export type UserCreateOrConnectWithoutJobsInput = {
@@ -459,6 +482,7 @@ export type UserUpdateWithoutJobsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applications?: Prisma.ApplicationUpdateManyWithoutCandidateNestedInput
+  resume?: Prisma.ResumeUpdateOneWithoutCandidateNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJobsInput = {
@@ -470,6 +494,7 @@ export type UserUncheckedUpdateWithoutJobsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applications?: Prisma.ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
+  resume?: Prisma.ResumeUncheckedUpdateOneWithoutCandidateNestedInput
 }
 
 export type UserCreateWithoutApplicationsInput = {
@@ -481,6 +506,7 @@ export type UserCreateWithoutApplicationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   jobs?: Prisma.JobCreateNestedManyWithoutEmployerInput
+  resume?: Prisma.ResumeCreateNestedOneWithoutCandidateInput
 }
 
 export type UserUncheckedCreateWithoutApplicationsInput = {
@@ -492,6 +518,7 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutEmployerInput
+  resume?: Prisma.ResumeUncheckedCreateNestedOneWithoutCandidateInput
 }
 
 export type UserCreateOrConnectWithoutApplicationsInput = {
@@ -519,6 +546,7 @@ export type UserUpdateWithoutApplicationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jobs?: Prisma.JobUpdateManyWithoutEmployerNestedInput
+  resume?: Prisma.ResumeUpdateOneWithoutCandidateNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApplicationsInput = {
@@ -530,6 +558,71 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jobs?: Prisma.JobUncheckedUpdateManyWithoutEmployerNestedInput
+  resume?: Prisma.ResumeUncheckedUpdateOneWithoutCandidateNestedInput
+}
+
+export type UserCreateWithoutResumeInput = {
+  id?: string
+  clerkId: string
+  name?: string | null
+  email: string
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  jobs?: Prisma.JobCreateNestedManyWithoutEmployerInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutCandidateInput
+}
+
+export type UserUncheckedCreateWithoutResumeInput = {
+  id?: string
+  clerkId: string
+  name?: string | null
+  email: string
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutEmployerInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutCandidateInput
+}
+
+export type UserCreateOrConnectWithoutResumeInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutResumeInput, Prisma.UserUncheckedCreateWithoutResumeInput>
+}
+
+export type UserUpsertWithoutResumeInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutResumeInput, Prisma.UserUncheckedUpdateWithoutResumeInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutResumeInput, Prisma.UserUncheckedCreateWithoutResumeInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutResumeInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutResumeInput, Prisma.UserUncheckedUpdateWithoutResumeInput>
+}
+
+export type UserUpdateWithoutResumeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jobs?: Prisma.JobUpdateManyWithoutEmployerNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutCandidateNestedInput
+}
+
+export type UserUncheckedUpdateWithoutResumeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jobs?: Prisma.JobUncheckedUpdateManyWithoutEmployerNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutCandidateNestedInput
 }
 
 
@@ -582,6 +675,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   jobs?: boolean | Prisma.User$jobsArgs<ExtArgs>
   applications?: boolean | Prisma.User$applicationsArgs<ExtArgs>
+  resume?: boolean | Prisma.User$resumeArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -619,6 +713,7 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   jobs?: boolean | Prisma.User$jobsArgs<ExtArgs>
   applications?: boolean | Prisma.User$applicationsArgs<ExtArgs>
+  resume?: boolean | Prisma.User$resumeArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -629,6 +724,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     jobs: Prisma.$JobPayload<ExtArgs>[]
     applications: Prisma.$ApplicationPayload<ExtArgs>[]
+    resume: Prisma.$ResumePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1034,6 +1130,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   jobs<T extends Prisma.User$jobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   applications<T extends Prisma.User$applicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  resume<T extends Prisma.User$resumeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$resumeArgs<ExtArgs>>): Prisma.Prisma__ResumeClient<runtime.Types.Result.GetResult<Prisma.$ResumePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1508,6 +1605,25 @@ export type User$applicationsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.ApplicationScalarFieldEnum | Prisma.ApplicationScalarFieldEnum[]
+}
+
+/**
+ * User.resume
+ */
+export type User$resumeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Resume
+   */
+  select?: Prisma.ResumeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Resume
+   */
+  omit?: Prisma.ResumeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResumeInclude<ExtArgs> | null
+  where?: Prisma.ResumeWhereInput
 }
 
 /**
